@@ -99,7 +99,7 @@ the definition of $d$.
 To deduce the triangle inequality for $d$ it suffices to prove the triangle
 inequality for $\delta$, which we do as follows:
 
-Let $a\in A$.  We know $inf_{b\in B}d(a,b)\leq\delta(A,B)$, so (by compactness
+Let $a\in A$.  We know $\inf_{b\in B}d(a,b)\leq\delta(A,B)$, so (by compactness
 of B) we can find $b_0\in B$ s.t.
 $d(a,b_0)\leq\delta(A,B)$.  Now similarly we can
 find $c_0\in C$ s.t. $d(b_0,c_0)\leq\delta(B,C)$.
@@ -920,8 +920,8 @@ non-empty closed balls centred at $0$.
 
 So, all the $N_{\sqrt{\epsilon^2-z^2}}(C(v,x+z))$ are nested.  Let $R$ be the
 supremal radius of these balls, and find a sequence
-$z_n$ such that the radius of $N_{\sqrt{\epsilon^2-z^2}}(C(v,x+z_n))$ tends to
-$R$ as $n\to\infty$, and each $N_{\sqrt{\epsilon^2-z^2}}(C(v,x+z_n))$ is
+$z_n$ such that the radius of $N_{\sqrt{\epsilon^2-z_n^2}}(C(v,x+z_n))$ tends
+to $R$ as $n\to\infty$, and each $N_{\sqrt{\epsilon^2-z_n^2}}(C(v,x+z_n))$ is
 non-empty.
 
 By taking a convergent subsequence of $z_n$ and applying the compactness of
@@ -980,8 +980,8 @@ compression of $C$ with $\lV C'\rV<R$.
 
 By \ref{thm:compressionNice} we know that $C'\in\kappa$.
 By \ref{thm:compressionSurfaceAreaDecreasing} we also know that
-$S_\epsilon(C')\leq S_\epsilon(C)$ so $C'\in X$, but this contradcts the choice
-of $C$.
+$S_\epsilon(C')\leq S_\epsilon(C)$ so $C'\in X$, but this contradicts the
+choice of $C$.
 
 Hence, it must be that $C$ is in fact a non-empty closed ball centred at $0$.
 Take $C=B(0,R)$.
