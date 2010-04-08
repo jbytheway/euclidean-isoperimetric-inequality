@@ -10,6 +10,8 @@
 \usepackage{johnmaths}
 \usepackage{comment}
 
+\sloppy
+
 \begin{document}
 
 \title{Isoperimetric inequality for compact subsets of Euclidean space}
@@ -108,7 +110,7 @@ By the triangle inequality on
 $(X,d)$ we deduce that:
 %
 \begin{eqnarray*}
-inf_{c\in C}d(a,c)&\leq&d(a,c_0) \\
+\inf_{c\in C}d(a,c)&\leq&d(a,c_0) \\
   &\leq& d(a,b_0)+d(b_0,c_0) \\
   &\leq& \delta(A,B)+\delta(B,C)
 \end{eqnarray*}
@@ -120,12 +122,12 @@ Next we wish to show that if $X$ is totally bounded, then so is $\kappa(X)$.
 
 Let $\epsilon>0$, and let $N=\{x_0,\ldots,x_n\}$ be an $\frac{\epsilon}{4}$-net
 for $X$.  We wish to show that
-$\bbP(N)\setminus\emptyset$ (the power set of $N$
+$\bbP(N)\setminus\{\emptyset\}$ (the power set of $N$
 excepting the empty set) is an
 $\epsilon$-net for $\kappa(X)$.
 
 Take any $A\in\kappa(X)$.  Let $B=\{x\in N:d(x,A)<\frac{\epsilon}{4}\}$.
-Certainly $b\in\bbP(N)\setminus\emptyset$.  We
+Certainly $b\in\bbP(N)\setminus\{\emptyset\}$.  We
 will show that $d(A,B)<\epsilon$, and thus deduce that $\bbP(N)$ is indeed an
 $\epsilon$-net.
 
@@ -146,10 +148,17 @@ The last and most tricky part of the proof is to show that if $X$ is complete
 then so is $\kappa(X)$.
 
 Let $A$ be a Cauchy sequence in $\kappa(X)$.  So
-$\lim_{n\to\infty}\sup_{m>n}d(A_n,A_m)=0$.  Choose a subsequence $B$ which
+\[
+\lim_{n\to\infty}\sup_{m>n}d(A_n,A_m)=0
+\]
+Choose a subsequence $B$ which
 converges sufficiently fast that $\sup_{m>n}d(B_n,B_m)<2^{-n}$.  In particular
-this means that $\sup_{m>n}\delta(B_n,B_m)<2^{-n}$ and
-$\sup_{m>n}\delta(B_m,B_n)<2^{-n}$.
+this means that
+%
+\begin{eqnarray*}
+&&\sup_{m>n}\delta(B_n,B_m)<2^{-n}\textrm{ and} \\
+&&\sup_{m>n}\delta(B_m,B_n)<2^{-n}
+\end{eqnarray*}
 
 Let $C$ be the set of all Cauchy sequences $x$ in $X$ satisfying
 $\forall n:x_n\in B_n$, and let $L$ be the set of limits of these Cauchy
@@ -174,7 +183,7 @@ $x^{(k)}_n\to y^{(k)}$ as $n\to\infty$.  Also, we know that $x^{(k)}_n\in B_n$.
 d(y^{(k)},B_i)
   &=& \lim_{n\to\infty}d(x^{(k)}_n,B_i) \\
   &\leq& \limsup_{n\to\infty}\delta(B_n,B_i) \\
-  &\leq& 2^{-i} \\
+  &\leq& 2^{-i}
 \end{eqnarray*}
 %
 So, for each $k$, we can choose a $z_i^{(k)}\in B_i$ with
@@ -190,7 +199,7 @@ step.  Note that when $k\geq i$ we have
 \begin{eqnarray*}
 d(y^{(i)},y^{(k)})
   &\leq& d(y^{(i)},z_i^{(i)})+d(z_i^{(i)},z_i^{(k)})+d(z_i^{(k)},y^{(k)}) \\
-  &<& 3\cdot2^{-i} \\
+  &<& 3\cdot2^{-i}
 \end{eqnarray*}
 %
 We are left with a sequence $y$ for which the above equation holds for all $i$
@@ -203,7 +212,7 @@ sequence $z_k^{(k)}$ (as $k$ varies), and noting that
 \begin{eqnarray*}
 d(z_k^{(k)},l)
   &\leq& d(z_k^{(k)},y^{(k)})+d(y^{(k)},l) \\
-  &<& 4\cdot2^{-k} \\
+  &<& 4\cdot2^{-k}
 \end{eqnarray*}
 %
 So, $z_k^{(k)}\to l$ as $k\to\infty$ and the sequence of $z_k^{(k)}$ is in $C$.
@@ -381,7 +390,7 @@ Or, in the notation of the theorem:
 \[
 \limsup_{\eta\to0^+}f_\eta(x)\leq\frac{1}{2}
 \]
-but $f(x)=1$ (since $x\in A$ and $f$ is the indicator function of $A$.
+but $f(x)=1$ (since $x\in A$ and $f$ is the indicator function of $A$).
 
 In summary, $\forall x\in A:f_\eta(x)\not\to f(x)$ as $\eta\to0^+$.
 
@@ -477,7 +486,7 @@ $\mu(A)\leq\liminf\mu(N_\epsilon(K_n))$.
 Taking the supremum over all eligible $A$ gives the result.
 \end{proof}
 
-Before we leave this section, we make onle final definition which we shall need
+Before we leave this section, we make one final definition which we shall need
 later:
 
 \begin{defn}
@@ -500,7 +509,7 @@ Given any compact set $A$, we try to compress it in such a way that we achieve
 three goals:
 \begin{enumerate}
 \item Keep the volume fixed.
-\item Decrease the surface area.
+\item Do not increase the surface area.
 \item Make $A$ look ``more like a closed ball''
 \end{enumerate}
 If we can manage all of these simultaneously, then we can imagine that if we
@@ -643,7 +652,7 @@ Hence, we deduce that
 \limsup_{n\to\infty} K(v,x_n) &\subseteq& K(v,x) \\
 \limsup_{n\to\infty}\mu(K(v,x_n)) &\leq& \mu(K(v,x)) \\
 \limsup_{n\to\infty}\mu(C(v,x_n)) &\leq& \mu(C(v,x)) \\
-\limsup_{n\to\infty}C(v,x_n) &\subseteq& C(v,x) \\
+\limsup_{n\to\infty}C(v,x_n) &\subseteq& C(v,x)
 \end{eqnarray*}
 %
 where the last step is clear when $\limsup_{n\to\infty}\mu(C(v,x_n))>0$
