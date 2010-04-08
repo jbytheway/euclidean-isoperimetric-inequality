@@ -1,0 +1,1038 @@
+\documentclass[a4paper,11pt]{article}
+
+% rubber: paper a4
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{varioref}
+\usepackage{johnmaths}
+
+\begin{document}
+
+\title{Isoperimetric inequality for compact subsets of Euclidean space}
+\author{John Bytheway}
+\date{June 2006}
+\maketitle
+
+\tableofcontents
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+
+\section{Introduction}
+The purpose of this article is to present a (relatively) elementary proof of
+a general isoperimetric inequality for compact subsets of $\bbR^m$.  We shall
+use elementary point-set topology (primarily compactness in $\bbR^m$), and
+slightly less elementary measure-theory (e.g. Fubini's Theorem).  At one point
+(to prove \vref{thm:openNeighbourhoods}) we are forced to invoke a powerful
+and far from elementary theorem, but hopefully the result is intuitively
+`obvious'.
+
+An isoperimetric inequality applies in a situation where a class of objects
+have a concept of both `volume' and `surface area' (or `area' and `perimeter'
+--- hence the name `isoperimetric'), and states a result of the form ``If $A$
+has a volume of at least $x$ then $A$ has a surface area of at least $y$''.
+Frequently the expression for the minimum surface area of any given volume is
+quite ugly, and it is much more convinient to rephrase the result in the form
+``Amongst all objects of volume $x$, the object $A$ has minimal surface area''.
+
+We are concerned in particular with compact subsets of $\bbR^m$, and we show
+that for suitable definitions of volume and surface area, closed balls minimise
+surface area for any fixed volume.
+
+\section{Spaces of compact subsets}
+We are concerned with compact subsets of $\bbR^m$, and we need
+some preliminary results about the properties of such compact subsets.
+
+\begin{defn}
+Let $(X,d)$ be a metric space.  We define
+\[
+\kappa(X)=\{K\subseteq X:K\textrm{ is compact and }K\not=\emptyset\}
+\]
+to be the \emph{space of compact subsets} of $X$.
+
+We also define
+\begin{eqnarray*}
+\delta &:& \kappa(X)\times\kappa(X)\to\bbR \\
+&& (A,B)\mapsto \sup_{a\in A}\inf_{b\in B}d(a,b) \\
+d &:& \kappa(X)\times\kappa(X)\to\bbR \\
+&& (A,B)\mapsto \delta(A,B)+\delta(B,A)
+\end{eqnarray*}
+\end{defn}
+
+\begin{lemma}
+\label{thm:deltaAndInclusion}
+$\delta(A,B)=0\iff A\subseteq B$
+\end{lemma}
+
+\begin{proof}
+Assume $A\subseteq B$ and let $a\in A$.  Then
+$\inf_{b\in B}d(a,b)\leq\inf_{b\in A}d(a,b)\leq d(a,a)=0$ and hence $\inf_{b\in
+B}d(a,b)=0$ so $\delta(A,B)=0$.
+
+Conversely, assume $\delta(A,B)=0$ and let $a\in A$.  Certainly
+$\inf_{b\in B}d(a,b)=0$, but B is compact, so we deduce that $a\in B$.  Thus
+$A\subseteq B$ as required.
+\end{proof}
+
+\begin{lemma}
+\label{thm:spaceOfCompactSubsets}
+For any metric space $(X,d)$, the function $d:\kappa(X)\times\kappa(X)\to\bbR$
+constructed in this way is a
+metric on $\kappa(X)$.  Furthermore, if $X$ is complete, then so is
+$\kappa(X)$, and if $X$ is totally bounded, then so is $\kappa(X)$.
+\end{lemma}
+
+\begin{proof}
+To show that $d$ is a metric we must prove:
+\begin{eqnarray*}
+&&d(A,B)=0 \iff A=B \\
+&&d(A,B)=d(B,A) \\
+&&d(A,B)+d(B,C)\geq d(A,C)
+\end{eqnarray*}
+%
+The first follows at once from \ref{thm:deltaAndInclusion}, and the second from
+the definition of $d$.
+
+To deduce the triangle inequality for $d$ it suffices to prove the triangle
+inequality for $\delta$, which we do as follows:
+
+Let $a\in A$.  We know $inf_{b\in B}d(a,b)\leq\delta(A,B)$, so (by compactness
+of B) we can find $b_0\in B$ s.t.
+$d(a,b_0)\leq\delta(A,B)$.  Now similarly we can
+find $c_0\in C$ s.t. $d(b_0,c_0)\leq\delta(B,C)$.
+By the triangle inequality on
+$(X,d)$ we deduce that:
+%
+\begin{eqnarray*}
+inf_{c\in C}d(a,c)&\leq&d(a,c_0) \\
+  &\leq& d(a,b_0)+d(b_0,c_0) \\
+  &\leq& \delta(A,B)+\delta(B,C)
+\end{eqnarray*}
+%
+Taking the supremum over $a\in A$ yields the triangle inequality for $\delta$,
+as required.
+
+Next we wish to show that if $X$ is totally bounded, then so is $\kappa(X)$.
+
+Let $\epsilon>0$, and let $N=\{x_0,\ldots,x_n\}$ be an $\frac{\epsilon}{4}$-net
+for $X$.  We wish to show that
+$\bbP(N)\setminus\emptyset$ (the power set of $N$
+excepting the empty set) is an
+$\epsilon$-net for $\kappa(X)$.
+
+Take any $A\in\kappa(X)$.  Let $B=\{x\in N:d(x,A)<\frac{\epsilon}{4}\}$.
+Certainly $b\in\bbP(N)\setminus\emptyset$.  We
+will show that $d(A,B)<\epsilon$, and thus deduce that $\bbP(N)$ is indeed an
+$\epsilon$-net.
+
+The fact that $N$ is an $\frac{\epsilon}{4}$-net, together with the definition
+of $B$, quickly tells us:
+%
+\begin{eqnarray*}
+\delta(A,B)
+  &=& \sup_{a\in A}\inf_{b\in B}d(a,b) \\
+  &\leq& \frac{\epsilon}{4}
+\end{eqnarray*}
+%
+The definition of $B$ alone is sufficient to show that
+$\delta(B,A)\leq\frac{\epsilon}{4}$.  Thus
+$d(A,B)\leq\frac{\epsilon}{2}<\epsilon$ as required.
+
+The last and most tricky part of the proof is to show that if $X$ is complete
+then so is $\kappa(X)$.
+
+Let $A$ be a Cauchy sequence in $\kappa(X)$.  So
+$\lim_{n\to\infty}\sup_{m>n}d(A_n,A_m)=0$.  Choose a subsequence $B$ which
+converges sufficiently fast that $\sup_{m>n}d(B_n,B_m)<2^{-n}$.  In particular
+this means that $\sup_{m>n}\delta(B_n,B_m)<2^{-n}$ and
+$\sup_{m>n}\delta(B_m,B_n)<2^{-n}$.
+
+Let $C$ be the set of all Cauchy sequences $x$ in $X$ satisfying
+$\forall n:x_n\in B_n$, and let $L$ be the set of limits of these Cauchy
+sequences.  We wish to show that $B_n\to L$ as $n\to\infty$.
+
+First we need to show that $L\in\kappa(X)$.  This requires proving that $L$ is
+compact and non-empty.
+
+We show that $L$ is sequentially compact.  Let $y$ be a sequence in $L$ with
+$k^{th}$ element $y^{(k)}$.  Each
+$y^{(k)}$ is the limit of a sequence $x^{(k)}$ in $C$.  We take subsequences
+infinitely many times as follows:
+
+At the $i^{th}$ occassion of taking a subsequence, we will alter only the
+elements from the $i^{th}$ onwards.  This ensures that we do have a sequence
+left after these infinitely many operations.
+
+At the $i^{th}$ occassion we start with a sequence of Cauchy sequences $x$ with
+$x^{(k)}_n\to y^{(k)}$ as $n\to\infty$.  Also, we know that $x^{(k)}_n\in B_n$.
+%
+\begin{eqnarray*}
+d(y^{(k)},B_i)
+  &=& \lim_{n\to\infty}d(x^{(k)}_n,B_i) \\
+  &\leq& \limsup_{n\to\infty}\delta(B_n,B_i) \\
+  &\leq& 2^{-i} \\
+\end{eqnarray*}
+%
+So, for each $k$, we can choose a $z_i^{(k)}\in B_i$ with
+$d(y^{(k)},z_i^{(k)})\leq2^{-i}$.  Since $B_i$ is sequentially compact, the
+sequence $z_i$ formed from these $z_i^{(k)}$
+(as $k$ varies) has a convergent subsequence.  Choose
+such a subsequence, but only discarding elements from the $i^{th}$ onwards, and
+furthermore ensuring that, in this subsequence, when $k\geq i$ we have
+$d(z_i^{(i)},z_i^{(k)})<2^{-i}$.  
+Choose corresponding subsequences of $x$ and $y$ in preperation for the next
+step.  Note that when $k\geq i$ we have
+%
+\begin{eqnarray*}
+d(y^{(i)},y^{(k)})
+  &\leq& d(y^{(i)},z_i^{(i)})+d(z_i^{(i)},z_i^{(k)})+d(z_i^{(k)},y^{(k)}) \\
+  &<& 3\cdot2^{-i} \\
+\end{eqnarray*}
+%
+We are left with a sequence $y$ for which the above equation holds for all $i$
+and $k\geq i$.  Thus $y$ is Cauchy, and converges to
+a limit $l$ (since $X$ is complete).  Furthermore,
+$\forall k:d(y^{(k)},l)<3\cdot 2^{-i}$.  It
+remains to be shown that $l\in L$.  We can deduce this by considering the
+sequence $z_k^{(k)}$ (as $k$ varies), and noting that
+%
+\begin{eqnarray*}
+d(z_k^{(k)},l)
+  &\leq& d(z_k^{(k)},y^{(k)})+d(y^{(k)},l) \\
+  &<& 4\cdot2^{-k} \\
+\end{eqnarray*}
+%
+So, $z_k^{(k)}\to l$ as $k\to\infty$ and the sequence of $z_k^{(k)}$ is in $C$.
+Thus indeed $l\in L$, and $L$ is sequentially compact.
+
+To show that $L\not=\emptyset$ we must construct an
+element $x$ of $C$.  We can do this
+inductively as follows.  The first element $x_0\in B_0$ is chosen arbitrarily.
+To choose an element $x_{n+1}$ we observe that $\delta(B_n,B_{n+1})<2^{-n}$, so
+we can find $x_{n+1}\in B_{n+1}$ with $d(x_n,x_{n+1})<2^{-n}$.  This choice
+clearly yields a Cauchy sequence $x$, so $L$ is indeed nonempty.
+
+Next, we must show that $B_n\to L$ as $n\to\infty$
+in $(\kappa(X),d)$.  It suffices to show
+that $\delta(B_n,L)\to0$ and $\delta(L,B_n)\to0$.
+
+To bound $\delta(B_n,L)$ we construct a sequence in much the same way as we did
+to show that $L\not=\emptyset$.  This sequence starts with arbitrary $x_n\in
+B_n$ and then each subsequent $x_{k+1}\in B_{k+1}$ satisfies
+$d(x_k,x_{k+1})<2^{-k}$.  Thus $x\in C$ and $x_k\to l\in L$ with
+$d(x_n,l)<2^{1-n}$.
+
+But $x_n$ was chosen arbitrarily from $B_n$, so $\delta(B_n,L)\leq2^{1-n}\to0$
+as $n\to\infty$.
+
+To bound $\delta(L,B_n)$ we take any $l\in L$.  Imagine the constant sequence
+in $L$ of which every element is $l$.  Trivially this sequence tends to $l$,
+and is a Cauchy sequence in $L$.  Applying the same process we used to show
+that $L$ is compact, we can construct from this constant sequence another
+sequence $z$ with $z_k\to l$ as $k\to\infty$ and $z_k\in B_k$ and
+$d(z_k,l)\leq4\cdot2^{-k}$.  In particular, we obtain $z_n\in B_n$ with
+$d(z_n,l)\leq2^{2-n}$.  Thus $\delta(L,B_n)\leq2^{2-n}\to0$ as $n\to\infty$.
+
+So, indeed, $B_n\to L$ as $n\to\infty$.  By general metric space results, if a
+Cauchy sequence has a convergent subsequence then it is itself convergent, so
+$A_n\to L$ as $n\to\infty$.  Thus $\kappa(X)$ is complete, as required.
+\end{proof}
+
+We, of course, are primarily concerned with $\bbR^m$, and always take
+the standard Euclidean metric thereon.
+
+\begin{corollary}
+$\kappa(\bbR^m)$ is complete.
+\end{corollary}
+
+\begin{defn}
+For a metric space $(X,d)$, an element $x\in X$ and $R\in\bbR$, let
+$B(x,R)=\{y\in X:d(x,y)\leq R\}$ be the \emph{closed ball}
+of radius $R$ centred at $x$, and let
+$B^o(x,R)=\{y\in X:d(x,y)<R\}$ be the \emph{open ball}
+of radius $R$ centred at $x$.
+
+We write $\kappa(\bbR^m,R)$ for $\kappa(B(0,R))$ (thinking of $0\in\bbR^m$).
+\end{defn}
+
+So, by \ref{thm:spaceOfCompactSubsets}, we deduce that $\kappa(\bbR^m,R)$ is
+compact.
+
+Now in order to state an isoperimetric inequality we need to define concepts
+analagous to both volume and surface area.  For the volume of
+$A\in\kappa(\bbR^m)$ we take simply the standard lebesgue measure of the set,
+which we denote by $\mu(A)$.
+
+The following lemma demonstrates how volume interacts with the topology on
+$\kappa(\bbR^m)$:
+
+\begin{lemma}
+\label{thm:upperContinuityOfVolume}
+Let $K_n$ be a convergent sequence in $\kappa(\bbR^m)$ with limit $K$.  Then
+$\mu(K)\geq\limsup_{n\to\infty}\mu(K_n)$.
+\end{lemma}
+
+\begin{proof}
+Taking a result from measure theory, we know that
+\[
+\mu(K)=\inf\{\mu(U):K\subseteq U,\ U \textrm{ open}\}
+\]
+So let $U$ be open and containing $K$.  Let
+$\epsilon=\inf_{k\in K}\inf_{x\in\bbR^m\setminus U}d(k,x)$.  By the choice of
+$U$, we know $\epsilon>0$.
+
+Since $K_n\to K$, eventually $\delta(K_n,K)<\epsilon$, and so eventually
+$K_n\subseteq U$.
+Thus eventually $\mu(K_n)\leq\mu(U)$, and hence
+$\mu(U)\geq\limsup_{n\to\infty}\mu(K_n)$.
+
+Taking the infimum over all eligible sets $U$, we get the result.
+\end{proof}
+
+This suggests a further definition and associated corollary:
+
+\begin{defn}
+For $R,V\in\bbR$, we define
+\[
+\kappa(\bbR^m,R,V)=\{K\in\kappa(\bbR^m,R):\mu(K)\geq V\}
+\]
+\end{defn}
+
+\begin{corollary}
+\label{thm:volumeBoundedSpaces}
+The set $\kappa(\bbR^m,R,V)$ is a closed subset of $\kappa(\bbR^m,R)$, and is
+thus compact.
+\end{corollary}
+
+To aquire a concept of surface area, we make several definitions:
+
+\begin{defn}
+We define the (\emph{closed} and \emph{open} respectively)
+\emph{epsilon-neighbourhoods} of $K\in\kappa(\bbR^m)$ to be
+\begin{eqnarray*}
+N_\epsilon(K)&=&\{x\in\bbR^m:d(x,K)\leq \epsilon\} \\
+N_\epsilon^o(K)&=&\{x\in\bbR^m:d(x,K)<\epsilon\}
+\end{eqnarray*}
+We also define
+\[
+S_\epsilon(K)=\mu(N_\epsilon(K))
+\]
+and then take the surface area of $K$ to be
+\[
+S(K)=\limsup_{\epsilon\to0^+}\frac{S_\epsilon(K)-\mu(K)}{\epsilon}
+\]
+(Effectively the right derivative with respect to $\epsilon$ of $S_\epsilon(K)$
+at $\epsilon=0$.)
+\end{defn}
+
+Note that in some cases (for example the Cantor set in $\bbR$) this definition
+gives an infinite surface area.
+
+\begin{lemma}
+\label{thm:openNeighbourhoods}
+For any $K\in\kappa(\bbR^m)$, and any $\epsilon>0$:
+\[
+S_\epsilon(K)=\mu(N_\epsilon^o(K))
+\]
+\end{lemma}
+
+\begin{proof}
+Let $\partial_\epsilon(K)=\{x\in\bbR^m:d(x,K)=\epsilon\}$.  This lemma is
+equivalent to the assertion that $\mu(\partial_\epsilon(K))=0$.
+
+To prove this fact we invoke a very hard to prove result from functional
+analysis:
+
+\begin{thm}
+Suppose $A\subseteq\bbR^m$ be a measurable set, with indicator function $f$.
+
+Define, for $\eta>0$:
+\[
+f_\eta:\bbR^m\to\bbR;x\mapsto\frac{\mu(A\cap B^o(x,\eta))}{\mu(B^o(x,\eta))}
+\]
+Then $f_\eta\to f$ a.e. as $\eta\to0^+$.
+\end{thm}
+
+We apply this result with $A=\partial_\epsilon(K)$.
+
+Let $x\in A$.  By definition of $\partial_\epsilon(K)$, we can find $k\in K$
+with $d(x,k)=\epsilon$.  Certainly $B^o(k,\epsilon)\cap A=\emptyset$.
+
+Assume $\eta<\epsilon$.  Note that $A\cap B^o(x,\eta)$ is disjoint from
+$B^o(k,\epsilon)\cap B^o(x,\eta)$.  This latter is the intersection of two
+balls of radii $\epsilon$ and $\eta$, with centres seperated by $\epsilon$.
+Computing the actual volume of this intersection is theoretically possible, but
+would be extremely messy in practice, so I ask instead that the reader
+mentally visualize what happens as $\eta\to0^+$, with $\epsilon$ fixed.
+It should be clear that
+\[
+\frac{\mu(B^o(k,\epsilon)\cap B^o(x,\eta))}{\mu(B^o(x,\eta))}\to\frac{1}{2}
+\]
+Thus, by the previously observed disjointness
+\[
+\limsup_{\eta\to0^+}\frac{\mu(A\cap B^o(x,\eta))}{\mu(B^o(x,\eta))}
+  \leq\frac{1}{2}
+\]
+Or, in the notation of the theorem:
+\[
+\limsup_{\eta\to0^+}f_\eta(x)\leq\frac{1}{2}
+\]
+but $f(x)=1$ (since $x\in A$ and $f$ is the indicator function of $A$.
+
+In summary, $\forall x\in A:f_\eta(x)\not\to f(x)$ as $\eta\to0^+$.
+
+But the theorem states that $f_\eta\to f$ a.e., so the only possible resolution
+is that $\mu(A)=0$, as required.
+\end{proof}
+
+We should check that this new definition of surface area agress with any other
+definition of surface area we might encounter in certain cases.  We so so in
+the following theorem, which is not required for the remaining results, but
+helps to ensure that our effort is worthwhile.
+
+\begin{thm}
+\label{thm:smoothSurfaceAreas}
+When $K$ is a compact smooth submanifold (with boundary) of $\bbR^m$, $S(K)$
+agrees with the standard definition of surface area in terms of the integral
+over the boundary manifold of the volume form induced by the Riemannian metric
+induced by the ambient metric on $\bbR^m$.
+\end{thm}
+
+\begin{proof}
+TODO (not much of an idea yet).
+\end{proof}
+
+Again we need to determine how this concept of surface area interacts with
+the topology.
+
+\begin{lemma}
+\label{thm:surfaceAreaContinuous}
+For all $\epsilon>0$, both $N_\epsilon$ and $S_\epsilon$ are continuous.
+\end{lemma}
+
+(Note that $S$ is very much not continuous, and that although $N_0$ is
+continuous (it is the identity), $S_0$ is not (it is simply $\mu$))
+
+\begin{proof}
+Fix $\epsilon>0$.
+
+Let $A\in\kappa(\bbR^m)$.  Let $\eta>0$.
+
+Suppose $d(A,B)\leq\frac{\eta}{2}$.  Then certainly both
+$\delta(A,B)\leq\frac{\eta}{2}$ and $\delta(B,A)\leq\frac{\eta}{2}$.
+
+Let $c\in N_\epsilon(A)$.  Then we can deduce as follows:
+%
+\begin{eqnarray*}
+\exists a\in A &:& d(a,c)\leq\epsilon \\
+\exists b\in B &:& d(a,b)\leq\frac{\eta}{2} \\
+&& d(b,c)\leq\epsilon+\frac{\eta}{2} \\
+&& \textrm{By the triangle inequality} \\
+\exists d\in N_\epsilon(B) &:& d(c,d)\leq\frac{\eta}{2} \\
+&& \textrm{By taking $d$ on the straight line between $b$ and $c$} \\
+&&\inf_{d\in N_\epsilon(B)}d(c,d)\leq\frac{\eta}{2} \\
+&&\sup_{c\in N_\epsilon(A)}\inf_{d\in N_\epsilon(B)}d(c,d)\leq\frac{\eta}{2} \\
+&&\delta(N_\epsilon(A),N_\epsilon(B))\leq\frac{\eta}{2}
+\end{eqnarray*}
+%
+By symmetry, we also have
+$\delta(N_\epsilon(B),N_\epsilon(A))\leq\frac{\eta}{2}$, and thus
+$d(N_\epsilon(A),N_\epsilon(B))\leq\eta$, and hence $N_\epsilon$ is continuous.
+
+Together with \ref{thm:upperContinuityOfVolume},
+this is enough to tell us that for
+$K_n\to K$, we have $S_\epsilon(K)\geq\limsup S_\epsilon(K_n)$, and so to get
+continuity of $S_\epsilon$ we need to deduce that
+\[
+S_\epsilon(K)\leq\liminf_{n\to\infty} S_\epsilon(K_n)
+\]
+First, using \ref{thm:openNeighbourhoods}, we rephrase this as
+\[
+\mu(N_\epsilon^o(K))\leq\liminf_{n\to\infty}\mu(N_\epsilon(K_n))
+\]
+Now, taking another measure theoretic result, we know that the left hand side
+of this inequality is
+\[
+\sup\{\mu(A):A\textrm{ is compact and }A\subseteq N_\epsilon^o(K)\}
+\]
+Let $A$ be such a set.  Note that
+\[
+N_\epsilon^o(K)=\bigcup_{\eta<\epsilon}N_\eta^o(K)
+\]
+so the $N_\eta^o(K)$ form an open cover of $A$, and we can take a finite
+subconer which then has a maximal element (when ordered by inclusion).  Thus
+$\exists\eta\in(0,\epsilon):A\subseteq N_\eta(K)$.
+
+Now, eventually $\delta(K,K_n)\leq\epsilon-\eta$, and so eventually
+$A\subseteq N_\epsilon(K_n)$, and hence eventually
+$\mu(A)\leq\mu(N_\epsilon(K_n))$, from which we get
+$\mu(A)\leq\liminf\mu(N_\epsilon(K_n))$.
+
+Taking the supremum over all eligible $A$ gives the result.
+\end{proof}
+
+Before we leave this section, we make onle final definition which we shall need
+later:
+
+\begin{defn}
+For $K\in\kappa(\bbR^m)$, we take
+\[
+\lV K\rV=\sup_{k\in K}\lV k\rV
+\]
+\end{defn}
+
+So, $\kappa(\bbR^m,R)=\{K\in\kappa(\bbR^m):\lV K\rV\leq R\}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Compressions}
+Our strategy with regard to proving the main result is to use
+\emph{compressions}.
+
+Given any compact set $A$, we try to compress it in such a way that we achieve
+three goals:
+\begin{enumerate}
+\item Keep the volume fixed.
+\item Decrease the surface area.
+\item Make $A$ look ``more like a closed ball''
+\end{enumerate}
+If we can manage all of these simultaneously, then we can imagine that if we
+keep compressing long enough then eventually we will have made $A$ into a
+closed ball of the same volume as $A$, but with a smaller surface area, thus
+showing that closed balls minimise surface area amongst compact sets of any
+fixed volume.
+
+In order to do this, we need to define an appropriate compression, as follows:
+
+\begin{defn}
+\label{defn:compression}
+Let $K\in\kappa(\bbR^m)$ and $v\in S^{m-1}$.
+
+Let $P_v=v^\perp$ be the subspace orthogonal to $v$.
+
+We define the \emph{$v$-sections} of any subset $A\subseteq\bbR^m$ by,
+for each $x\in\bbR$
+\[
+A(v,x)=\{y\in P_v:y+xv\in A\}
+\]
+Now we define the \emph{$v$-compression} of $K$ to be $C_v(K)$, where,
+$\forall x\in\bbR$:
+%
+\begin{eqnarray*}
+\mu(C_v(K)(v,x))&=&\mu(K(v,x))
+\end{eqnarray*}
+%
+(Where measures are calculated in $P_v$)
+and $C_v(K)(v,x)$ is a closed ball centred at $0$ in $P_v$.
+
+If $\mu(K(v,x))>0$, this defines $C(v,x)$ uniquely, but if $\mu(K(v,x))=0$,
+then we could take $C_v(K)(v,x)=\emptyset$, or $\{0\}$, since both of these are
+closed balls of measure zero.  We use the latter iff, for every neighbourhood
+$U$ of $x$ in $\bbR$, we can find $y\in U:\mu(K(v,y))>0$.
+
+As a particular special case, if $C_v(K)$ would otherwise be empty then take
+$C_v(K)=\{0\}$.
+\end{defn}
+
+Note that $P_v\isom\bbR^{n-1}$,
+although this isometry is not especially canonical.  Differential geometers
+might prefer to think of $P_v$ as the tangent space to $S^{m-1}$ at $v$.
+
+The notation for sections may seem ambiguous, but it saves introducing another
+letter, of which we are already using far too many, and it shouldn't cause
+confusion, since there is no other sense in which sets are used as functions.
+
+The definition of $C_v(K)$ really does provide enough information, because any
+subset is determined by all of its sections.
+
+It is probably best to think of this compression as chopping up $K$ into
+uncountably many slices, compressing each as much as possible, and then pasting
+them back together again.
+
+The following theorem summarizes the most important properties of these
+compressions that we can prove so far.
+
+\begin{thm}
+\label{thm:compressionProperties}
+Let $K\in\kappa(\bbR^m)$, let $v\in S^{m-1}$ and let $C=C_v(K)$.  Then
+\begin{enumerate}
+\item $C$ is bounded by $\lV K\rV$.
+\label{prop:compressionBounded}
+\item $C$ is compact.
+\label{prop:compressionCompact}
+\item $\mu(C)=\mu(K)$.
+\label{prop:compressionMeasurePreserving}
+\item $C\in\kappa(\bbR^m)$.
+\label{prop:compressionNonEmpty}
+\item $\lV C\rV\leq\lV K\rV$.
+\label{prop:compressionNormDecreasing}
+\item Either $C=\{0\}$ or
+	$\forall x\in\bbR:C(v,x)\not=\emptyset\implies K(v,x)\not=\emptyset$
+\label{prop:compressionNonCreative}
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+All of these properties are clearly true if we are in the particular special
+case mentioned in the last part of the definition, so we assume that we are not
+in that case.
+
+\ref{prop:compressionBounded}. $C$ is bounded by $\lV K\rV$:
+
+Let $c\in C$.  We can express $c=y+xv$ with $y\in P_v$, so that $y\in C(v,x)$.
+
+Thus, in particular, $C(v,x)$ is non-empty, and so we consider two cases.
+
+Case 1: $C(v,x)$ is a closed ball of positive radius.
+
+In this case
+$\mu(C(v,x))>0$, and hence $\mu(K(v,x))>0$, so $K(v,x)\not=\emptyset$.
+
+Furthermore, since
+\[
+\mu(C(v,x))=\mu(K(v,x))\leq\mu(B(0,\lV K(v,x)\rV))
+\]
+we certainly know that the radius
+of $C(v,x)$ is at most $\lV K(v,x)\rV\leq\sqrt{\lV K\rV^2-x^2}$.
+
+Thus $\lV y\rV\leq\sqrt{\lV K\rV^2-x^2}$, and hence $\lV c\rV\leq\lV K\rV$.
+
+Case 2: $C(v,x)=\{0\}$
+
+In this case we must have $y=0$, so $c=vx$ and $\lV c\rV=\lv x\rv$.
+
+From the definition, we can find $w$
+arbitrarily close to $x$, with $\mu(K(v,w))\not=0$, and thus
+$K(v,w)\not=\emptyset$ so that $\lV K\rV\geq\lv w\rv$.
+
+Hence, $\lV K\rV\geq\lv x\rv=\lV c\rV$, as required.
+
+\ref{prop:compressionCompact}. $C$ is compact:
+
+We know from \ref{prop:compressionBounded} that $C$ is bounded, so it suffices
+to show that $C$ is closed.
+
+Let $c_n$ be a Cauchy sequence in $C$.  Decompose $c_n=y_n+x_nv$ where
+$\forall n:y_n\in P_v$.  Orthogonal projections are continuous, so each of
+$x_n$ and $y_n$ is a Cauchy sequence.
+
+Let $x=\lim x_n$, and suppose
+\[
+w\in\limsup_{n\to\infty}K(v,x_n)
+\]
+Then we can find a subsequence $x_{n_k}$ with
+%
+\begin{eqnarray*}
+\forall k&:&w\in K(v,x_{n_k}) \\
+\forall k&:&w+x_{n_k}v\in K
+\end{eqnarray*}
+%
+But $w+x_{n_k}v\to w+xv$ as $n\to\infty$, and $K$ is closed, so $w+xv\in K$,
+and thus $w\in K(v,x)$.
+
+Hence, we deduce that
+%
+\begin{eqnarray*}
+\limsup_{n\to\infty} K(v,x_n) &\subseteq& K(v,x) \\
+\limsup_{n\to\infty}\mu(K(v,x_n)) &\leq& \mu(K(v,x)) \\
+\limsup_{n\to\infty}\mu(C(v,x_n)) &\leq& \mu(C(v,x)) \\
+\limsup_{n\to\infty}C(v,x_n) &\subseteq& C(v,x) \\
+\end{eqnarray*}
+%
+where the last step is clear when $\limsup_{n\to\infty}\mu(C(v,x_n))>0$
+since all the $C(v,x)$ are closed balls centred at $0$ (by considering the
+sequence of radii),
+but requires further explanation when $\limsup_{n\to\infty}\mu(C(v,x_n))=0$.
+
+In this case we forsee a possible problem when $C(v,x)=\emptyset$, but if that
+were the case then (by the definition)
+there must be some open neighbourhood $U$ of $x$ such that
+$\forall y\in U:\mu(K(v,x))=0$.  Then, eventually $x_n\in U$, and so
+$x_n$ has a neigbourhood with the same property, which means
+$C(v,x_n)=\emptyset$,
+from which we deduce $\limsup_{n\to\infty}C(v,x_n)=\emptyset$, and the asserted
+deduction does indeed still hold in this case.
+
+Now let $y=\lim y_n$, so $y\in P_v$, and $\lV y\rV=\lim\lV y_n\rV$.  Thus,
+recalling that $y_n\in C(v,x_n)$, and again exploiting the fact that the
+$C(v,x)$ are closed balls centred at the origin, so the radius of $C(v,x_n)$ is
+at least $\lV y_n\rV$, we get $y\in\overline{\limsup_{n\to\infty}C(v,x_n)}$,
+and hence $y\in C(v,x)$
+(since $C(v,x)$ is closed and contains $\limsup_{n\to\infty}C(v,x_n)$).
+
+Thus $y+xv\in C$.  But $y+xv=\lim y_n+x_nv=\lim c_n$, so Cauchy sequences
+converge in $C$, and hence $C$ is closed.
+
+\ref{prop:compressionMeasurePreserving}. $\mu(C)=\mu(K)$:
+
+Since $C$ is compact, we know that $C$ is measurable, and, writing
+$1_A:\bbR^m\to\{0,1\}$ for the indicator
+function of $A\subseteq\bbR^m$, we find:
+%
+\begin{eqnarray*}
+\mu(C)
+&=& \int_{\bbR^m}1_C\rmd\mu \\
+&=& \int_\bbR\int_{P_v}1_{C(v,x)}\rmd\mu\rmd x \\
+&& \textrm{By Fubini's theorem} \\
+&=& \int_\bbR\mu(C(v,x))\rmd x \\
+&=& \int_\bbR\mu(K(v,x))\rmd x \\
+&=& \int_\bbR\int_{P_v}1_{K(v,x)}\rmd\mu\rmd x \\
+&=& \int_{\bbR^m}1_K\rmd\mu \\
+&& \textrm{By Fubini's theorem} \\
+&=& \mu(K)
+\end{eqnarray*}
+
+\ref{prop:compressionNonEmpty}.
+$C\in\kappa(\bbR^m)$:
+
+This follows at once from \ref{prop:compressionCompact}, since we have ensured
+that $C\not=\emptyset$.
+
+\ref{prop:compressionNormDecreasing}.
+$\lV C\rV\leq\lV K\rV$:
+
+By \ref{prop:compressionNonEmpty} we know $\lV C\rV$ is meaningful, and then
+the result follows at once from \ref{prop:compressionBounded}.
+
+\ref{prop:compressionNonCreative}. Either $C=\{0\}$ or
+	$\forall x\in\bbR:C(v,x)\not=\emptyset\implies K(v,x)\not=\emptyset$:
+
+The first possibility is necessary only for the exceptional special case
+already dismissed.  In any other situation the only possible source of a
+problem is when $C(v,x)=\{0\}$.
+
+By the definition we can find $x_n\to x$ with $\mu(K(v,x_n))>0$, and so we can
+choose $z_n\in K(v,x_n)$.  By compactness of $K$ we can find a convergent
+subsequence $z_{n_k}\to z$, and we must have $z\in K(v,x)$, so indeed
+$K(v,x)\not=\emptyset$.
+\end{proof}
+
+\begin{corollary}
+\label{thm:compressionNice}
+Let $R,V\in\bbR$.  Then
+\[
+C_v(\kappa(\bbR^m,R,V))\subseteq\kappa(\bbR^m,R,V)
+\]
+\end{corollary}
+
+This theorem provides us the first of the three requirements we had for our
+compression (volume-preserving),
+and property \ref{prop:compressionNormDecreasing} goes some way to
+providing the third (making the set more like a closed ball),
+but we can do better, as the following result makes clear:
+
+\begin{thm}
+\label{thm:compressionStrictlyNormDecreasing}
+Let $m\geq2, K\in\kappa(\bbR^m)$ with $K$ not a closed ball centred at $0$.
+
+Then we can find a sequence $v_1,v_2,\ldots,v_n$
+in $S^{m-1}$ such that, taking $K_0=K$ and for $1\leq j\leq n$, setting
+$K_j=C_{v_j}(K_{j-1})$, we get $\lV K_n\rV<\lV K\rV$.
+\end{thm}
+
+\begin{proof}
+Let $M=\lV K\rV$ and $S=\{x\in\bbR^m:\lV x\rV=M\}$.  Since $K$ is not a closed
+ball, we cannot have $K=\{0\}$, and so $M>0$.  Note that, by
+\ref{thm:compressionProperties}.\ref{prop:compressionNormDecreasing},
+for $L$ any iterated compression of $K$, $\lV L\rV\leq M$.
+
+For $x\in[-M,M]$ let $M_x=\sqrt{M^2-x^2}$ so
+that for any $v\in S^{m-1}$, and $L$ any iterated
+compression of $K$, $\lV L(v,x)\rV\leq M_x$, but always $\lV S(v,x)\rV=M_x$.
+
+If $S\cap K=S$ then since
+$K\not=B(0,\lV K\rV)$, we can find $y\not\in K$ with $\lV y\rV<\lV K\rV$.
+Applying any $v$-compression to $K$, we see that $K(v,y.v)$ omits some open
+neighbourhood of $y-y.v$, which has positive measure, so
+\[
+\mu(K(v,y.v))<\mu(B(0,M_{y.v}))
+\]
+Thus $C_v(K)(v,y.v)$ has radius less than $M_{x.v}$,
+so that $C_v(K)(v,x.v)\cap S(v,x.v)=\emptyset$, and hence
+$C_v(K)\cap S\not=S$.
+
+Thus, at the cost of one additional compression, we may assume that
+$S\cap K\not=S$.
+
+$S\cap K$ is closed in $S$, so we can find $w\in S$ and $\epsilon>0$ s.t.
+$B(w,\epsilon)\cap S\cap K=\emptyset$.
+
+$S$ is compact, so we can cover it with finitely many balls of radius
+$\epsilon$.  Choose $\{u_i:i\in[n]\}\subseteq S$ (where $[n]=\{1,\ldots,n\}$)
+such that
+\[
+S\subseteq\bigcup_{i=1}^n B(u_i,\epsilon)
+\]
+Now take
+\[
+v_i=\frac{u_i+x}{\lV u_i+x\rV}
+\]
+And define $K_i$ as in the statement of the theorem.
+We show by induction on $i$
+that
+%
+\begin{eqnarray*}
+\forall i\in[n] &:& B(w,\epsilon)\cap S\cap K_i=\emptyset \\
+\forall i\in[n]:\forall j\in[i] &:& B(u_j,\epsilon)\cap S\cap K_i=\emptyset
+\end{eqnarray*}
+%
+To deduce the first statement, and the second for $j<i$ it suffices to show
+that if $s\in S$ and $B(s,\epsilon)\cap S\cap K_{i-1}=\emptyset$ then
+$B(s,\epsilon)\cap S\cap K_i=\emptyset$ (which we use by applying it with
+$s=w,u_1,\ldots,u_{i-1}$).
+
+To see this, take any $z\in B(s,\epsilon)\cap S$ and decompose $z=y+xv_i$ where
+$y\in P_{v_i}$, so $\lV y\rV=M_x$.  Consider $K_{i-1}(v_i,x)$.
+We know $y\not\in K_{i-1}(v_i,x)$, so
+some open neighbourhood of $y$ is disjoint from $K_{i-1}(v_i,x)$, and so, as
+before we see that
+\[
+\mu(K_{i-1}(v_i,x))<\mu(B(0,M_x))
+\]
+and deduce $K_{i}(v_i,x)=C_{v_i}(K_{i-1})(v_i,x)$ is disjoint from $S(v_i,x)$,
+so in particular $y\not\in K_{i}(v_i,x)$ and thus $z\not\in K_{i}$.  But $z$
+was an arbitrary element of $B(s,\epsilon)\cap S$, so
+$B(s,\epsilon)\cap S\cap K_{i}=\emptyset$.
+
+Now to show that $B(u_i,\epsilon)\cap S\cap K_{i}=\emptyset$, we note that
+$u_i.v_i=w.v_i$, so $B(u_i,\epsilon)$ intersects all the same $v_i$-sections as
+$B(w,\epsilon)$, and in the same way as both the arguments above,
+all of these sections, after
+compression, are disjoint from the same sections of $S$, and hence,
+in particular,
+$B(u_i,\epsilon)\cap S\cap K_{i}=\emptyset$.
+
+In conclusion, since $S\subseteq\bigcup_{i=1}^n B(u_i,\epsilon)$, we find
+that $K_n\cap S=\emptyset$, and thus $\lV K_n\rV<M$.
+\end{proof}
+
+Note that for $m>2$ this argument is extremely overcomplicated and in fact just
+two compressions will always suffice, but when $m=2$ we really can need
+arbitrarily many compressions to achieve a strict reduction of $\lV K\rV$.
+
+This theorem explains precisely what we mean by ``making the set more like a
+closed ball'', and shows that we can achieve this goal.
+
+So, now it remains only to show the the compressions do not increase surface
+area, and to tie up all the loose ends.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The isoperimetric inequality}
+We are nearly ready to state and prove the basic form of the
+isoperimetric inequality for compact subsets.  This will be an induction on
+$m$, so first we must do a special case proof for $m=1$.
+
+\begin{lemma}
+Let $K\subseteq\bbR$ be compact.  Then either $K=\emptyset$ so $K$ is a closed
+ball, or else $S_\epsilon(K)-\mu(K)\geq 2\epsilon$,
+whereas for any non-empty closed
+ball $B$, we have $S_\epsilon(B)-\mu(B)=2\epsilon$.
+\end{lemma}
+
+\begin{proof}
+The case $K=\emptyset$ is clear.
+
+For the next part, note that:
+%
+\begin{eqnarray*}
+N_\epsilon(K)\setminus K &\supseteq&
+	[\inf K-\epsilon,\inf K)\cup(\sup K,\sup K+\epsilon] \\
+\mu(N_\epsilon(K)\setminus K)&\geq&
+	\mu([\inf K-\epsilon,\inf K)\cup(\sup K,\sup K+\epsilon]) \\
+\mu(N_\epsilon(K)\setminus K)&\geq& 2\epsilon \\
+S_\epsilon(K)-\mu(K)&\geq& 2\epsilon
+\end{eqnarray*}
+%
+And finally non-empty closed balls are exactly sets of the form $[a,b]$ with
+$b\geq a$, and
+clearly $N_\epsilon([a,b])=[a-\epsilon,b+\epsilon]$, and hence
+$S_\epsilon([a,b])=b-a+2\epsilon$, so $S_\epsilon(B)-\mu(B)=2\epsilon$ as
+required.
+\end{proof}
+
+\begin{corollary}
+\label{thm:mainTheoremForR}
+Let $K\in\kappa(\bbR)$, let $B\subseteq \bbR$ be the non-empty closed
+ball centred at $0$ with $\mu(B)=\mu(K)$ and let $\epsilon\geq0$, then
+$S_\epsilon(K)\geq S_\epsilon(B)$.
+\end{corollary}
+
+So, the main theorem is
+
+\begin{thm}
+Let $K\in\kappa(\bbR^m)$, let $B\subseteq \bbR^m$ be the non-empty closed
+ball centred at $0$ with $\mu(B)=\mu(K)$ and let $\epsilon\geq0$, then
+$S_\epsilon(K)\geq S_\epsilon(B)$.
+\end{thm}
+
+\begin{proof}
+We work by induction on $m$.  The case $m=1$ is precisely
+\ref{thm:mainTheoremForR}, so we must perform the inductive step for $m\geq2$.
+
+For this we need the following sub-lemma, which provides the last of the
+requirements we wished for regarding our compressions.
+
+\begin{lemma}
+\label{thm:compressionSurfaceAreaDecreasing}
+Let $K\in\kappa(\bbR^m)$ and let $v\in S^{m-1}$.  Then
+$S_\epsilon(C_v(K))\leq S_\epsilon(K)$.
+\end{lemma}
+
+\begin{proof}
+Let $C=C_v(K)$.
+
+If $C=\{0\}$ then, since $K\not=\emptyset$, the result is obvious, and so we
+dismiss this case.
+
+$P_v\isom\bbR^{m-1}$, so we can apply the inductive hypothesis to each
+non-empty section $K(v,x)$ to deduce that
+%
+\begin{eqnarray*}
+\forall x:\forall\eta\geq0 &:& S_\eta(C(v,x))\leq S_\eta(K(v,x)) \\
+\forall x:\forall\eta\geq0 &:& \mu(N_\eta(C(v,x)))\leq \mu(N_\eta(K(v,x)))
+\end{eqnarray*}
+%
+Furthermore, we note that, by rewriting distances in terms of distances
+parallel and perpendicular to $v$, we get
+%
+\begin{eqnarray*}
+N_\epsilon(K)(v,x) &=&
+	\bigcup_{z\in[-\epsilon,\epsilon],K(v,x+z)\not=\emptyset}
+	N_{\sqrt{\epsilon^2-z^2}}(K(v,x+z)) \\
+N_\epsilon(C)(v,x) &=&
+	\bigcup_{z\in[-\epsilon,\epsilon],C(v,x+z)\not=\emptyset}
+	N_{\sqrt{\epsilon^2-z^2}}(C(v,x+z))
+\end{eqnarray*}
+%
+If all the $C(v,x+z)$ are empty, then we are done, but otherwise we proceed as
+follows:
+
+Now each non-empty $C(v,x+z)$ is a non-empty closed
+ball centred at $0$, and thus the corresponding
+$N_{\sqrt{\epsilon^2-z^2}}(C(v,x+z))$ are also
+non-empty closed balls centred at $0$.
+
+So, all the $N_{\sqrt{\epsilon^2-z^2}}(C(v,x+z))$ are nested.  Let $R$ be the
+supremal radius of these balls, and find a sequence
+$z_n$ such that the radius of $N_{\sqrt{\epsilon^2-z^2}}(C(v,x+z_n))$ tends to
+$R$ as $n\to\infty$, and each $N_{\sqrt{\epsilon^2-z^2}}(C(v,x+z_n))$ is
+non-empty.
+
+By taking a convergent subsequence of $z_n$ and applying the compactness of
+$C$, we can find $z_0$ such that
+\[
+\forall z\in[-\epsilon,\epsilon]:N_{\sqrt{\epsilon^2-z^2}}(C(v,x+z))\subseteq
+	N_{\sqrt{\epsilon^2-z_0^2}}(C(v,x+z_0))
+\]
+and hence
+\[
+N_\epsilon(C)(v,x)=N_{\sqrt{\epsilon^2-z_0^2}}(C(v,x+z_0))
+\]
+so in particular this set is non-empty, and by
+\ref{thm:compressionProperties}.\ref{prop:compressionNonCreative}, $K(v,x+z_0)$
+is also non-empty.
+
+Now we see that
+%
+\begin{eqnarray*}
+\mu(N_\epsilon(C)(v,x))
+&=& \mu\left(N_{\sqrt{\epsilon^2-z_0^2}}(C(v,x+z_0))\right) \\
+&\leq& \mu\left(N_{\sqrt{\epsilon^2-z_0^2}}(K(v,x+z_0))\right) \\
+&& \textrm{By inductive hypothesis} \\
+&\leq& \mu\left(\bigcup_{z\in[-\epsilon,\epsilon]}
+	N_{\sqrt{\epsilon^2-z^2}}(K(v,x+z))\right) \\
+&\leq& \mu(N_\epsilon(K)(v,x))
+\end{eqnarray*}
+%
+Hence, by integrating over $x$ and applying Fubini's theorem we deduce
+\[
+\mu(N_\epsilon(C))\leq\mu(N_\epsilon(K))
+\]
+as required.
+\end{proof}
+
+Now we finish the proof of the main theorem by tying together all of the
+results we have proved.
+
+If $\epsilon=0$ then $S_\epsilon(K)=\mu(K)=\mu(B)=S_\epsilon(B)$, so the result
+is true, and henceforth we assume $\epsilon>0$.
+
+Let $\kappa=\kappa(\bbR^n,\lV K\rV,\mu(K))$.
+
+By \ref{thm:volumeBoundedSpaces}, $\kappa$ is compact and by
+\ref{thm:surfaceAreaContinuous}, $S_\epsilon:\kappa\to\bbR$ is continuous.
+Thus $S_\epsilon$ achieves its minimum $A$.
+
+Let $X=S_\epsilon^{-1}(\{A\})$.  $X$ is closed in $\kappa$, so $X$ is compact.
+
+$\lV\cdot\rV:X\to\bbR$ is also continuous, and also achieves a minimum value
+$R$.  Let $C$ be a set at which this minimum is achieved.
+
+Suppose $C$ is not a closed ball centred at $0$, then we can apply
+\ref{thm:compressionStrictlyNormDecreasing} to get $C'$, an iterated
+compression of $C$ with $\lV C'\rV<R$.
+
+By \ref{thm:compressionNice} we know that $C'\in\kappa$.
+By \ref{thm:compressionSurfaceAreaDecreasing} we also know that
+$S_\epsilon(C')\leq S_\epsilon(C)$ so $C'\in X$, but this contradcts the choice
+of $C$.
+
+Hence, it must be that $C$ is in fact a non-empty closed ball centred at $0$.
+Take $C=B(0,R)$.
+
+Now consider $B$ (recall that we defined $B$ to the the closed ball at $0$ of
+volume $\mu(K)$).  Let $r$ be the radius of $B$.  Certainly $\mu(B)\leq\mu(C)$
+(since $C\in\kappa=\kappa(\bbR^m,\lV K\rV,\mu(B))$), and thus
+$r\leq R$.  Hence $S_\epsilon(B)\leq S_\epsilon(C)$ and since $C\in X$ we also
+know $S_\epsilon(C)\leq S_\epsilon(K)$, and indeed we have
+$S_\epsilon(B)\leq S_\epsilon(K)$ as required.
+
+(In fact, of course, $B=C$, but we don't need to prove that)
+\end{proof}
+
+\begin{corollary}
+[Isoperimetric inequality for compact subsets of Euclidean space]
+Amongst non-empty compact subsets of $\bbR^m$ of any fixed volume, surface area
+is minimised by the non-empty closed balls of that volume.
+\end{corollary}
+
+\begin{proof}
+Take $K$ and $B$ as in the theorem above.
+
+For each fixed $\epsilon>0$, we have $S_\epsilon(K)\geq S_\epsilon(B)$.  Also
+$\mu(K)=\mu(B)$, so when we subtract this, divide by $\epsilon$
+and let $\epsilon\to0^+$ we certainly
+get $S(B)\leq S(K)$.
+\end{proof}
+
+\begin{corollary}
+Combining this with \ref{thm:smoothSurfaceAreas}, we deduce that amongst all
+smooth compact submainfolds (with boundary) of $\bbR^m$ of dimension $m$ of any
+fixed volume, closed balls minimise surface area.
+\end{corollary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Generalizations}
+There are at least two obvious directions to generalize this result.
+
+We might try to generalize it to other norms on $\bbR^m$.  In this case the
+difficulty will be proving the analogue of
+\ref{thm:compressionStrictlyNormDecreasing} in two dimensions - we were only
+able to do this because the group of norm-preseving linear maps (i.e. the
+orthogonal group) acts transitively on the unit sphere for the euclidean
+metric.  This would not be true for most other norms.  Probably the case $m=2$
+will become another special case which will have to be handled more carefully.
+
+Another possibility is to generalize to compact subsets of some other
+Riemannian manifold.  In this case one must first be careful to be sure one
+understands exactly what the analogue of volume is, and even then there is no
+obvious analogue of our compressions, about which the entire proof hinged.
+\end{document}
