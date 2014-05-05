@@ -140,7 +140,7 @@ excepting the empty set) is an
 $\epsilon$-net for $\kappa(X)$.
 
 Take any $A\in\kappa(X)$.  Let $B=\{x\in N:d(x,A)<\frac{\epsilon}{4}\}$.
-Certainly $b\in\bbP(N)\setminus\{\emptyset\}$.  We
+Certainly $B\in\bbP(N)\setminus\{\emptyset\}$.  We
 will show that $d(A,B)<\epsilon$, and thus deduce that $\bbP(N)$ is indeed an
 $\epsilon$-net.
 
@@ -682,14 +682,16 @@ $C(v,x_n)=\emptyset$,
 from which we deduce $\limsup_{n\to\infty}C(v,x_n)=\emptyset$, and the asserted
 deduction does indeed still hold in this case.
 
-Now let $y=\lim y_n$, so $y\in P_v$, and $\lV y\rV=\lim\lV y_n\rV$.  Thus,
+Now let $y=\lim_{n\to\infty} y_n$, so $y\in P_v$,
+and $\lV y\rV=\lim_{n\to\infty}\lV y_n\rV$.  Thus,
 recalling that $y_n\in C(v,x_n)$, and again exploiting the fact that the
 $C(v,x)$ are closed balls centred at the origin, so the radius of $C(v,x_n)$ is
 at least $\lV y_n\rV$, we get $y\in\overline{\limsup_{n\to\infty}C(v,x_n)}$,
 and hence $y\in C(v,x)$
 (since $C(v,x)$ is closed and contains $\limsup_{n\to\infty}C(v,x_n)$).
 
-Thus $y+xv\in C$.  But $y+xv=\lim y_n+x_nv=\lim c_n$, so Cauchy sequences
+Thus $y+xv\in C$.  But $y+xv=\lim_{n\to\infty} y_n+x_nv=\lim_{n\to\infty} c_n$,
+so Cauchy sequences
 converge in $C$, and hence $C$ is closed.
 
 \ref{prop:compressionMeasurePreserving}. $\mu(C)=\mu(K)$:
@@ -776,7 +778,7 @@ neighbourhood of $y-y.v$, which has positive measure, so
 \[
 \mu(K(v,y.v))<\mu(B(0,M_{y.v}))
 \]
-Thus $C_v(K)(v,y.v)$ has radius less than $M_{x.v}$,
+Thus $C_v(K)(v,y.v)$ has radius less than $M_{y.v}$,
 so that $C_v(K)(v,x.v)\cap S(v,x.v)=\emptyset$, and hence
 $C_v(K)\cap S\not=S$.
 
@@ -794,7 +796,7 @@ S\subseteq\bigcup_{i=1}^n B(u_i,\epsilon)
 \]
 Now take
 \[
-v_i=\frac{u_i+x}{\lV u_i+x\rV}
+v_i=\frac{u_i+w}{\lV u_i+w\rV}
 \]
 And define $K_i$ as in the statement of the theorem.
 We show by induction on $i$
@@ -824,7 +826,16 @@ was an arbitrary element of $B(s,\epsilon)\cap S$, so
 $B(s,\epsilon)\cap S\cap K_{i}=\emptyset$.
 
 Now to show that $B(u_i,\epsilon)\cap S\cap K_{i}=\emptyset$, we note that
-$u_i.v_i=w.v_i$, so $B(u_i,\epsilon)$ intersects all the same $v_i$-sections as
+%
+\begin{eqnarray*}
+  u_i.v_i
+  &=& \frac{u_i.u_i+u_i.w}{\lV u_i+w\rV} \\
+  &=& \frac{1+u_i.w}{\lV u_i+w\rV} \\
+  &=& \frac{w.w+u_i.w}{\lV u_i+w\rV} \\
+  &=& w.v_i
+\end{eqnarray*}
+%
+so $B(u_i,\epsilon)$ intersects all the same $v_i$-sections as
 $B(w,\epsilon)$, and in the same way as both the arguments above,
 all of these sections, after
 compression, are disjoint from the same sections of $S$, and hence,
